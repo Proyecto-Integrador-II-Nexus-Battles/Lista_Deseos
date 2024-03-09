@@ -2,7 +2,7 @@ import dotenv from 'dotenv';
 dotenv.config({ path: './local/.env' });
 
 import express, { json } from 'express'
-import indexRouter from './routes/index'; // Importa el enrutador principal (indexRouter) desde el archivo index.js ubicado en el directorio routes.
+import router from './routes/routes.js'; // Importa el enrutador principal (indexRouter) desde el archivo index.js ubicado en el directorio routes.
 
 
 
@@ -39,7 +39,7 @@ app.use(cookieParser());
 
 
 // enrutador principal, todo lo que llegue a la raiz sera manejado por el indexRouter
-app.use('/', indexRouter);
+app.use('/', router);
 
 
 // error 404 (no encontrado)
