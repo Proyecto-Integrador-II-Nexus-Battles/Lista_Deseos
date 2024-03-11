@@ -21,6 +21,31 @@ export const listaDeseos = async (req, res) => {
   };
 
 
+// Funcion de eliminar mis cartas de la lista de deseos
+export const listaDeseosEliminar = async (req, res) => {
+    let conn;
+  try {
+    console.log('iniciando la conexion');
+  conn = await db.pool.getConnection();
+  const rows = await conn.query("DELETE FROM lista_deseos WHERE id = "+req.params.itemid+";");
+  console.log(rows);
+  res.json({status : 'ok'}); 
+  
+  } catch (err) {
+  console.log('Entre un error', err);
+  res.json({status : 'ok'});
+  throw err;
+  } finally {
+  if (conn) return conn.end();
+    }
+};
+
+
+
+
+
 module.exports = {
   listaDeseos,
 };
+
+
