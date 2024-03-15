@@ -1,22 +1,22 @@
-import dotenv from 'dotenv';
-dotenv.config({ path: './local/.env' });
 
 import express, { json } from 'express'
-import router from './routes/routes.js'; // Importa el enrutador principal (indexRouter) desde el archivo index.js ubicado en el directorio routes.
+import './enviroment.js'
+// Importa el enrutador principal (indexRouter) desde el archivo index.js ubicado en el directorio routes.
 
+/* console.log(process) */
 
+import router from './routes/routes.js';
 
 import session from 'express-session'; // Importa el módulo de sesiones de express
 import createError from 'http-errors'; // Importa el módulo para manejar situaciones de error HTTP
-import path from 'path'; // Módulo que proporciona facilidad para trabajar con rutas de archivos y directorios
 import cookieParser from 'cookie-parser'; // Importa el módulo cookie-parser, que se utiliza para analizar las cookies adjuntas a las solicitudes HTTP
 import logger from 'morgan'; // Importa el módulo para el registro de solicitudes HTTP (middleware de registro)
 import cors from 'cors'; // Importa el módulo CORS para habilitar el intercambio de recursos entre diferentes dominios en el navegador web.
 
 
-const app = express() // --> Iniciamos express
-app.use(json()) 
-app.disable('x-powered-by') // --> Deshabilitar el header x-powered-by
+export const app = express(); // --> Iniciamos express
+app.use(json());
+app.disable('x-powered-by'); // --> Deshabilitar el header x-powered-by
 
 
 //permite conexiones de cualquier url
@@ -49,10 +49,8 @@ app.use(function(req, res, next) {
 
 
 // PORT
-const PORT = process.env.PORT || 3000 // --> Usar la variable de entorno PORT, si no usar el port 3000
+const PORT = process.env.PORT || 3000; // --> Usar la variable de entorno PORT, si no usar el port 3000
 
 app.listen(PORT, () => {
-  console.log(`Server listen on port http://localhost:${PORT}`)
-})
-
-module.exports = app;
+  console.log(`Server listen on port http://localhost:${PORT}`);
+});
