@@ -14,10 +14,11 @@ export const listaDeseos = async (req, res) => {
     console.log(rows);
     res.json(rows);
   } catch (err) {
+    res.json({ status: "error en la base de datos" });
+    res.status(500);
     console.log("Entre un error", err);
-    throw err;
   } finally {
-    if (conn) return conn.end();
+    if (conn) conn.end();
   }
 };
 
@@ -32,10 +33,10 @@ export const eliminarItemListaDeseos = async (req, res) => {
     console.log(rows);
     res.json({ status: "ok" });
   } catch (err) {
-    console.log("Entre un error", err);
-    res.json({ status: "ok" });
-    throw err;
+    /* console.log("Entre un error", err); */
+    res.json({ status: "error en la base de datos" });
+    res.status(500);
   } finally {
-    if (conn) return conn.end();
+    if (conn) conn.end();
   }
 };
