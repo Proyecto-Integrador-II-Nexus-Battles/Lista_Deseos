@@ -39,3 +39,20 @@ export const vitrina = async (req, res) => {
         res.status(400);
     }
 };
+
+export const enviar = async (req, res) => {
+    let idUsario = req.body.IdUsuario;
+    let idCard = req.body.IdCard;
+    let cantidad = req.body.Cantidad;
+
+    if (idUsario && idCard && cantidad) {
+        
+        res.json({
+            'mesagge': 'se agregaron los productos'
+        });
+        res.status(200);
+    } else {
+        res.json({"mesagge": "No se envio correctamente la carta"});
+        res.status(400);
+    }
+};
