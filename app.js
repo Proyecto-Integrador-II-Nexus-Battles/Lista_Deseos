@@ -1,4 +1,3 @@
-
 import express, { json } from 'express'
 import './enviroment.js'
 // Importa el enrutador principal (indexRouter) desde el archivo index.js ubicado en el directorio routes.
