@@ -7,7 +7,9 @@ export const listaDeseos = async (req, res) => {
     console.log("iniciando la conexion");
     conn = await pool.getConnection();
     const rows = await conn.query(
-      "SELECT id, producto_id FROM lista_deseos WHERE usuario_id=" + req.body.user_id +";"
+      "SELECT id, producto_id FROM lista_deseos WHERE usuario_id=" +
+        req.body.user_id +
+        ";"
     );
     console.log(rows);
     res.json(rows);
