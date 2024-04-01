@@ -1,0 +1,5 @@
+node_modules
+local
+.gitignore
+enviroment.js
+docker-compose.yml
