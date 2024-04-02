@@ -32,8 +32,8 @@ const options = {
 };
 
 // PORT
-const PORT = process.env.PORT || 3000; // --> Usar la variable de entorno PORT, si no usar el port 3000
+const PORT = process.env.PORT || 6000; // --> Usar la variable de entorno PORT, si no usar el port 3000
 
-http.createServer(app).listen(80);
+// http.createServer(app).listen(80);
 https.createServer(options, app).listen(PORT);
 console.log("Server on port", PORT);
