@@ -1,11 +1,11 @@
 import express, { json } from "express";
-
 import router from "./routes/routes.js";
 import createError from "http-errors"; // Importa el módulo para manejar situaciones de error HTTP
 import cors from "cors"; // Importa el módulo CORS para habilitar el intercambio de recursos entre diferentes dominios en el navegador web.
 import fs from "fs";
 import http from "http";
 import https from "https";
+import { APP_PORT } from "./config.js";
 
 export const app = express(); // --> Iniciamos express
 app.use(json());
@@ -32,8 +32,7 @@ const options = {
 };
 
 // PORT
-const PORT = process.env.PORT || 6000; // --> Usar la variable de entorno PORT, si no usar el port 3000
 
-// http.createServer(app).listen(80);
-https.createServer(options, app).listen(PORT);
-console.log("Server on port", PORT);
+http.createServer(app).listen(80);
+https.createServer(options, app).listen(APP_PORT);
+console.log("Server on port", APP_PORT);

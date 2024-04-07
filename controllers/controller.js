@@ -1,17 +1,16 @@
 import pool from "../db/database.js";
-import jwt from "jsonwebtoken";
 
 // Funcion de llamar a mis cartas de lista de deseos
 export const listaDeseos = async (req, res) => {
   let conn;
 
   try {
-    console.log("iniciando la conexion");
     conn = await pool.getConnection();
+    console.log("iniciando la conexion");
     const rows = await conn.query(
-      "SELECT id, producto_id FROM lista_deseos WHERE usuario_id=" +
-      req.body.IdUsuario +
-      ";"
+      "SELECT ID, CARTAS_ID FROM LISTA_DESEOS WHERE ID_USUARIO=" +
+        req.body.IdUsuario +
+        ";"
     );
     console.log(rows);
     res.json(rows);
@@ -28,16 +27,10 @@ export const agregarListaDeseos = async (req, res) => {
   let conn;
   console.log("iniciando la conexion");
 
-  // const Authorization = req.headers['authorization']
-  // const token = Authorization.slice(7)
-  // const decodedToken = jwt.decode(token, { complete: true });
-  // const payload = decodedToken.payload;
-  // const userId = payload.id.id;
-
   try {
     conn = await pool.getConnection();
     const rows = await conn.query(
-      "INSERT INTO lista_deseos (id_usuario, fecha_agregado, cantidad, cartas_id) VALUES (?, NOW(), ?, ?)",
+      "INSERT INTO LISTA_DESEOS (ID_USUARIO, FECHA_AGREGADO, CANTIDAD, CARTAS_ID) VALUES (?, NOW(), ?, ?)",
       [req.body.IdUsuario, 1, req.body.IdCard]
     );
     console.log(rows);
@@ -51,20 +44,14 @@ export const agregarListaDeseos = async (req, res) => {
   }
 };
 
-
 export const eliminarItemListaDeseos = async (req, res) => {
   let conn;
 
-  // const Authorization = req.headers['authorization']
-  // const token = Authorization.slice(7)
-  // const decodedToken = jwt.decode(token, { complete: true });
-  // const payload = decodedToken.payload;
-  // const userId = payload.id.id;
-
   try {
+    console.log("El req.body es: ", req.body);
     conn = await pool.getConnection();
     const rows = await conn.query(
-      "DELETE FROM lista_deseos WHERE cartas_id = ? AND id_usuario = ?",
+      "DELETE FROM LISTA_DESEOS WHERE CARTAS_ID = ? AND ID_USUARIO = ?",
       [req.body.IdCard, req.body.IdUsuario]
     );
     console.log(rows);
