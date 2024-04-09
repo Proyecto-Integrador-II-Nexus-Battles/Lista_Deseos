@@ -11,7 +11,7 @@ import { inventario, vitrina, enviar } from "../controllers/dummy.js";
 
 //cambiar el nombre del endpoint
 const router = Router();
-router.post("", listaDeseos);
+router.post("/", listaDeseos);
 router.post("/agregar", agregarListaDeseos);
 router.post("/eliminar/", eliminarItemListaDeseos);
 router.post("/dummy/getCard", inventario);
