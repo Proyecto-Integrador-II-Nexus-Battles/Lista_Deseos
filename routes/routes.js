@@ -6,6 +6,7 @@ import {
   listaDeseos,
   eliminarItemListaDeseos,
   agregarListaDeseos,
+  getWishedCards
 } from "../controllers/controller.js";
 import { inventario, vitrina, enviar } from "../controllers/dummy.js";
 
@@ -14,6 +15,7 @@ const router = Router();
 router.post("/", listaDeseos);
 router.post("/agregar", agregarListaDeseos);
 router.post("/eliminar/", eliminarItemListaDeseos);
+router.post("/getWishedCards", getWishedCards);
 router.post("/dummy/getCard", inventario);
 router.post("/dummy/prices", vitrina);
 router.post("/dummy/ADD-CARD", enviar);
