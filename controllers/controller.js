@@ -64,3 +64,24 @@ export const eliminarItemListaDeseos = async (req, res) => {
     conn.release();
   }
 };
+
+
+export const getWishedCards = async (req, res) => {
+  let conn;
+
+  try {
+    conn = await pool.getConnection();
+    const rows = await conn.query(
+      "SELECT CARTAS_ID FROM LISTA_DESEOS WHERE ID_USUARIO = ?",
+        [req.body.IdUsuario]
+    );
+    const ids = rows.map(row => row.CARTAS_ID);
+    res.json(ids);
+  } catch (err) {
+    res.json({ status: "error en la base de datos" });
+    res.status(500);
+    console.log("Entre un error", err);
+  } finally {
+    if (conn) conn.end();
+  }
+}
