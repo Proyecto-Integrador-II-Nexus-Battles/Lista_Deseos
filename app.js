@@ -1,14 +1,38 @@
-import express, { json } from 'express'
-import { templateRouter } from './routes/template.js' //--> !!!IMPORTANT!!! Siempre que importen un archivo extensión .js .Loquesea, siempre ponerlo en el path, ej -> './routes/template.js' --> el .js es la extensión 
+import express, { json } from "express";
+import router from "./routes/routes.js";
+import createError from "http-errors"; // Importa el módulo para manejar situaciones de error HTTP
+import cors from "cors"; // Importa el módulo CORS para habilitar el intercambio de recursos entre diferentes dominios en el navegador web.
+import fs from "fs";
+import http from "http";
+import https from "https";
+import { APP_PORT } from "./config.js";
 
-const app = express() // --> Iniciamos express
-app.use(json()) 
-app.disable('x-powered-by') // --> Deshabilitar el header x-powered-by
+export const app = express(); // --> Iniciamos express
+app.use(json());
+app.disable("x-powered-by"); // --> Deshabilitar el header x-powered-by
 
-app.use(templateRouter)
+//permite conexiones de cualquier url
+app.use(cors());
 
-const PORT = process.env.PORT || 3000 // --> Usar la variable de entorno PORT, si no usar el port 3000
+//configaron de middleware adicional para el registro, analisis de JSON, formularios y cookies
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
 
-app.listen(PORT, () => {
-  console.log(`Server listen on port http://localhost:${PORT}`)
-})
+// enrutador principal, todo lo que llegue a la raiz sera manejado por el indexRouter
+app.use("/deseos", router);
+
+// error 404 (no encontrado)
+app.use(function (req, res, next) {
+  next(createError(404));
+});
+
+const options = {
+  key: fs.readFileSync("certs/privkey.pem"),
+  cert: fs.readFileSync("certs/cert.pem"),
+};
+
+// PORT
+
+http.createServer(app).listen(80);
+https.createServer(options, app).listen(APP_PORT);
+console.log("Server on port", APP_PORT);
